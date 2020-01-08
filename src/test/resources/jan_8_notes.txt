@@ -1,0 +1,168 @@
+Agenda for review:
+	Cucumber + parallel testing
+
+url: http://secure.smartbearsoftware.com/samples/TestComplete12/WebOrders
+username: Tester
+password: test
+
+1. Analyze web application first, explore it.
+Find pages and try to understand functionality.
+
+What pages do we have?
+
+Login
+View All Orders
+View All Products
+Order
+
+#####
+2. Choose tools and language
+How to start framework?
+
+What tools we gonna use?
+Java as programming language --- Why Java?
+First of all it's my main language, also developers use it so I can always get some help from them.
+Java has a lot of advantages: high level language, thus it's easy and fast to develop on it, java is fast, multi platform (write once and run everywhere), supports multi-threading. etc...
+
+Maven as a build tool and also for managing dependencies.
+
+Once we chose language and build tool we are ready to create a project:
+
+project name: WebOrdersAutomation
+group id: com.weborders
+artifact id: WebOrdersAutomation
+
+
+Then add dependencies into pom.xml file:
+
+   <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.weborders</groupId>
+    <artifactId>WebOrdersAutomation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+
+        <cucumber.version>4.8.0</cucumber.version>
+<!--        by default maven is using java 5, so we force maven to use 8-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+    </dependencies>
+
+</project>
+
+~Create .gitignore file and list files and folders that you don't want to push to github.
+
+target
+.idea
+WebOrdersAutomation.iml or *.iml
+
+~Then src --> test --> java | make a right click and create a package: com.weborders.pages
+
+com.weborders.pages ---> com
+							weborders
+									pages
+
+Don't be afraid If you will see 3 packages. Dot (.) splits packages
+
+Then right click on weborders, and create 3 more packages: step_defintions, utilities and runners packages.
+
+	pages - to store page classes
+	step_deinitions - to store code implementation of cucumber test steps
+	runners - cucumber test runner classes
+	utilities - reusable code, like selenium, excel, date&time, sql, config reader, driver class/webdriverfactory utilities.
+
+Also, create resources folder under src --> test, and then inside src > test > resources create features folder. INside this folder we gonna store all feature files. Every feature files contains test scenarios.
+
+
+Then I would create under features folder couple folders based on application components to group them up.
+Login
+View All Orders
+View All Products
+Order
+
+	features
+		login
+			Login.feature
+		view_all_orders
+		view_all_products
+		order
+
+
+We need to create configuration.properties file. This file stands for project configuration. It contains credentials, links, wait configs, etc. Some companies, use it to store LOCATORS. I had very intersting interview question: How and where to store locators except page classes. The easiest and best solution is - properties file.
+
+DEAFULT CONTENT:
+
+url=http://secure.smartbearsoftware.com/samples/testcomplete12/weborders
+user_name=Tester
+password=test
+
+Then under pages, we crate abstract BasePage class. This class is abstract because we don't have corresponded page in our application, and this class is used as a super class for all page classes. It has all common locators/webelements and initializes page factory.
+
+
+Add Driver, ConfiguratioReader, BrowserUtils classes to make your life easier. It's normal practice to take some code from old projects to save some time.
+
+Then we need to create runner and step definition classes
+
+	CucumberRunner/CukesRunner/FunctionalRunner/TestIT
+
+	package com.weborders.runners;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+
+@RunWith(Cucumber.class) - for junit, to run it
+@CucumberOptions(
+        features = "src/test/resources/features", - where is features
+        glue = "com/weborders/step_definitions" - where is step definitions
+)
+public class CucumberRunner {
+
+}
+
+
+
+Last step: create LoginStepDefintions.java class and Login.feature file.
+
+
+
+
+
+
+
+
+
+
