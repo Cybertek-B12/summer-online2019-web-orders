@@ -8,11 +8,11 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage extends BasePage {
 
     @FindBy(id = "ctl00_MainContent_username")
-    public WebElement userNameInputElement;
+    private WebElement userNameInputElement;
 
     //shortcut for driver.findElement(By.id("ctl00_MainContent_password"))
     @FindBy(id = "ctl00_MainContent_password")
-    public WebElement passwordInputElement;
+    private WebElement passwordInputElement;
 
     public void login() {
         String userName = ConfigurationReader.getProperty("user_name");
@@ -28,7 +28,7 @@ public class LoginPage extends BasePage {
     //                  -->         loginPage.login(string1, string2)
     //                          }
 
-    public void login(String userName, String password){
+    public void login(String userName, String password) {
         userNameInputElement.sendKeys(userName);
         passwordInputElement.sendKeys(password, Keys.ENTER);
         //Keys.ENTER instead of login click
