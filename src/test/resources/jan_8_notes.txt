@@ -123,7 +123,7 @@ Order
 
 We need to create configuration.properties file. This file stands for project configuration. It contains credentials, links, wait configs, etc. Some companies, use it to store LOCATORS. I had very intersting interview question: How and where to store locators except page classes. The easiest and best solution is - properties file.
 
-DEAFULT CONTENT:
+DEFAULT CONTENT:
 
 url=http://secure.smartbearsoftware.com/samples/testcomplete12/weborders
 user_name=Tester
