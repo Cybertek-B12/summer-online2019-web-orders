@@ -158,7 +158,25 @@ public class CucumberRunner {
 Last step: create LoginStepDefintions.java class and Login.feature file.
 
 
+ <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M4</version>
+                    <configuration>
+                        <parallel>methods</parallel>
+                        <useUnlimitedThreads>true</useUnlimitedThreads>
+                        <includes>
+                                <include>**/CucumberRunner.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
 
+            </plugins>
+        </build>
+
+        mvn test to run tests
 
 
 
