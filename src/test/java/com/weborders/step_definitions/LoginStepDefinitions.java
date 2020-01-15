@@ -5,6 +5,7 @@ import com.weborders.utilities.ConfigurationReader;
 import com.weborders.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.junit.Assert;
 
 public class LoginStepDefinitions {
     //create login page object
@@ -19,6 +20,12 @@ public class LoginStepDefinitions {
     public void i_login_as_tester() {
         loginPage.login();
     }
+
+    @Then("I verify that {string} logo is displayed")
+    public void i_verify_that_logo_is_displayed(String string) {
+        Assert.assertEquals("Logo test is not correct", string, loginPage.getPageLogoText());
+    }
+
 }
 
 
