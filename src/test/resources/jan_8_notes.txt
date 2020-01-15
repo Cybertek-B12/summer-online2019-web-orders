@@ -179,6 +179,71 @@ Last step: create LoginStepDefintions.java class and Login.feature file.
         mvn test to run tests
 
 
+############## PART 2 #################
+
+Before starting automation, we need to set priorities, and understand what we should automate first. Anyway, first test suit that you have to build will be smoke test. Then slowly, we gonna develop regression suit. To finish development of regression suit, it can take from couple month to couple weeks, because it depends on team size, application size, pretty much there are many factors.
+
+But, before even writing step definitions, we need do build page classes. We don't have to build all page classes from the beginning, just those that are required by our tests.
+
+So first page class will be login page.
+
+@FindBy(id = "ctl00_MainContent_password") - it's a shortcut for driver.findElement(By.id("ctl00_MainContent_password"))
+
+ Flow with jira:
+
+ Go to jira and create test for each scenario.
+
+ Write test summary as scenario name
+
+ Add scenario steps
+    Given I am on the login page
+    Then I login as tester
+
+Export it as cucumber file and add to your framework.
+
+    @WEB-1241
+  Scenario: Login as tester
+    Given I am on the login page
+    Then I login as tester
+
+
+Scenario Outline - it's test that runs multiple times with different data sets
+
+Hook - method that runs before and after every test scenario
+
+Background - it's a steps, that are running before every test scenario in specific feature file.
+
+Background - common beginning steps in specific feature file
+
+Scenario: Login as driver
+    Given I am on the login page
+    Then I login as driver
+
+
+Scenario: Login as supervisor
+    Given I am on the login page
+    Then I login as supervisor
+
+
+Scenario: Login as sales manager
+    Given I am on the login page
+    Then I login as sales manager
+
+#################################### Instead of repeating 1st step again and again, put it into background
+
+Background:
+    Given I am on the login page
+
+Scenario: Login as driver
+    Then I login as driver
+
+
+Scenario: Login as supervisor
+    Then I login as supervisor
+
+Scenario: Login as sales manager
+    Then I login as sales manager
+
 
 
 
