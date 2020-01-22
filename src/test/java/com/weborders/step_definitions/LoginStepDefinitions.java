@@ -1,6 +1,7 @@
 package com.weborders.step_definitions;
 
 import com.weborders.pages.LoginPage;
+import com.weborders.utilities.BrowserUtils;
 import com.weborders.utilities.ConfigurationReader;
 import com.weborders.utilities.Driver;
 import io.cucumber.java.en.Given;
@@ -23,6 +24,7 @@ public class LoginStepDefinitions {
 
     @Then("I verify that {string} logo is displayed")
     public void i_verify_that_logo_is_displayed(String string) {
+        BrowserUtils.wait(5);
         Assert.assertEquals("Logo test is not correct", string, loginPage.getPageLogoText());
     }
 
