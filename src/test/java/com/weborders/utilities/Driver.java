@@ -74,7 +74,17 @@ public class Driver {
                         WebDriverManager.firefoxdriver().setup();
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName(BrowserType.FIREFOX);
-                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-18-212-156-23.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
+                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-198-132-149.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "remote_chrome":
+                    try {
+                        WebDriverManager.chromedriver().setup();
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                        desiredCapabilities.setBrowserName(BrowserType.CHROME);
+                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-198-132-149.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -83,7 +93,6 @@ public class Driver {
                     throw new RuntimeException("Wrong browser name!");
 
             }
-
         }
         //return corresponded to thread id webdriver object
         return driverPool.get();
