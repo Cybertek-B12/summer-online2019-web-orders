@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "com/weborders/step_definitions",
+        plugin = "json:target/cucumber.json",
 //        tags = "@view_all_orders",
         dryRun = false
 )
