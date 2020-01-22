@@ -28,6 +28,6 @@ node {
             <br>
             <strong>Check Cucumber HTML report: $PROJECT_URL/$BUILD_NUMBER/cucumber-html-reports/overview-features.html</strong>''',
             subject: 'Smoke test status: $BUILD_STATUS',
-            to: 'someemail@cybertekschool.com'
+            to: '$DEFAULT_RECIPIENTS'
         }
 }
